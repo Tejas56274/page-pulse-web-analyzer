@@ -19,6 +19,8 @@ function App() {
         url: url,
       });
 
+console.log("API Response:", response.data);
+
       setResult(response.data);
     } catch (error) {
       console.error(error);
@@ -87,15 +89,36 @@ function App() {
 
         {result && (
           <div style={{ marginTop: "30px" }}>
-            <h3>Results</h3>
+            <h2>📊 Analysis Results</h2>
 
             <p><b>Status:</b> {result.status}</p>
             <p><b>Response Time:</b> {result.response_time}</p>
             <p><b>Title:</b> {result.title}</p>
-            <p><b>Meta:</b> {result.meta_description}</p>
+            <p><b>Meta Description:</b> {result.meta_description}</p>
             <p><b>H1 Count:</b> {result.h1_count}</p>
-            <p><b>Missing ALT:</b> {result.missing_alt_images}</p>
+            <p><b>Missing ALT Images:</b> {result.missing_alt_images}</p>
             <p><b>Word Count:</b> {result.word_count}</p>
+
+            <hr />
+
+            <h2>🚀 SEO Analysis</h2>
+
+            <p><b>SEO Score:</b> {result.seo_score}/100</p>
+
+            <p>
+              <b>HTTPS:</b>{" "}
+              {result.https_enabled ? "✅ Enabled" : "❌ Not Enabled"}
+            </p>
+
+            <p>
+              <b>Robots.txt:</b>{" "}
+              {result.robots_txt ? "✅ Found" : "❌ Not Found"}
+            </p>
+
+            <p>
+              <b>Sitemap.xml:</b>{" "}
+              {result.sitemap_xml ? "✅ Found" : "❌ Not Found"}
+            </p>
           </div>
         )}
       </div>

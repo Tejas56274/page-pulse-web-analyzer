@@ -4,8 +4,7 @@ from app.services import analyze_website
 
 router = APIRouter()
 
-
 @router.post("/analyze", response_model=AnalyzeResponse)
-def analyze(request: AnalyzeRequest):
+async def analyze(request: AnalyzeRequest):
     result = analyze_website(str(request.url))
-    return AnalyzeResponse(**result)
+    return result
