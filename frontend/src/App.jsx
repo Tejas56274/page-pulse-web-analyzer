@@ -1,6 +1,7 @@
 
 import { useState } from "react";
 import API from "./services/api";
+import Footer from "./components/Footer";
 
 function App() {
   const [url, setUrl] = useState("");
@@ -37,6 +38,7 @@ function App() {
       style={{
         minHeight: "100vh",
         display: "flex",
+        flexDirection: "column",
         justifyContent: "center",
         alignItems: "center",
         background: "linear-gradient(135deg,#EEF2FF,#DBEAFE,#FFFFFF)",
@@ -125,6 +127,8 @@ function App() {
           </>
         )}
       </div>
+
+      <Footer />
     </div>
   );
 }
