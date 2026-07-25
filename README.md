@@ -1,58 +1,53 @@
-# 🚀 Page Pulse - Website Analyzer
+# 🚀 Page Pulse — Website Analyzer
 
-Page Pulse is a full-stack web application that analyzes any website and provides useful SEO and performance insights.
+Page Pulse is a full-stack web application that analyzes any website and returns instant SEO, performance, and health insights.
 
 ## 🌐 Live Demo
 
-[https://YOUR-VERCEL-URL.vercel.app](https://page-pulse-web-analyzer.vercel.app/)s
+[page-pulse-web-analyzer.vercel.app](https://page-pulse-web-analyzer.vercel.app/)
 
 ## 📂 GitHub Repository
 
-https://github.com/Tejas56274/page-pulse-web-analyzer
+<https://github.com/Tejas56274/page-pulse-web-analyzer>
 
 ---
 
 ## ✨ Features
 
-- Website Status Check
-- Response Time Analysis
-- SEO Score Calculation
-- Page Title Detection
-- Meta Description Detection
-- H1 Count
-- Word Count
-- Missing ALT Image Detection
-- HTTPS Detection
-- Robots.txt Detection
-- Sitemap.xml Detection
+- Website status check
+- Response time analysis
+- SEO score calculation
+- Page title detection
+- Meta description detection
+- H1 count
+- Word count
+- Missing ALT image detection
+- HTTPS detection
+- robots.txt detection
+- sitemap.xml detection
 
 ---
 
 ## 🛠 Tech Stack
 
 ### Frontend
-- React.js
+- React.js (Vite)
 - Axios
 
 ### Backend
 - FastAPI
 - BeautifulSoup4
-- Requests
-
----
-
-## 📸 Screenshots
-
-(Add screenshots here if required)
+- httpx
 
 ---
 
 ## 🚀 Installation
 
-### Clone Repository
+### Clone the repository
 
 ```bash
 git clone https://github.com/Tejas56274/page-pulse-web-analyzer.git
+cd page-pulse-web-analyzer
 ```
 
 ### Backend
@@ -63,6 +58,8 @@ pip install -r requirements.txt
 uvicorn app.main:app --reload
 ```
 
+Backend runs at `http://127.0.0.1:8000`.
+
 ### Frontend
 
 ```bash
@@ -71,49 +68,73 @@ npm install
 npm run dev
 ```
 
+Frontend runs at `http://127.0.0.1:5173`.
+
 ---
 
-## 📡 API Endpoint
+## 📡 API Reference
 
-POST `/analyze`
+### `POST /analyze`
 
-Example Request
-
+**Request**
 ```json
 {
   "url": "https://python.org"
 }
 ```
 
+**Response (200)**
+```json
+{
+  "status": 200,
+  "response_time": "614.00 ms",
+  "title": "Welcome to Python.org",
+  "meta_description": "The official home of the Python Programming Language",
+  "h1_count": 1,
+  "missing_alt_images": 0,
+  "word_count": 512,
+  "seo_score": 100,
+  "https_enabled": true,
+  "robots_txt": true,
+  "sitemap_xml": false
+}
+```
+
+**Error responses**
+| Status | Condition |
+|---|---|
+| `422` | Malformed or unsupported URL (fails validation before any request is made) |
+| `400` | URL is well-formed but unreachable (DNS/connection failure) |
+| `504` | Request to the target website timed out |
+
 ---
 
-## 📋 Sample Output
+## ✅ Running Tests
 
-```text
-Status: 200
-SEO Score: 100
-HTTPS: Enabled
-Robots.txt: Found
-Sitemap.xml: Not Found
-Response Time: 614 ms
+```bash
+cd backend
+pip install pytest
+pytest -v
 ```
+
+Tests cover:
+- Happy path (valid, reachable URL)
+- Invalid URL (missing field, malformed URL, unsupported scheme)
+- Timeout / unreachable URL handling
 
 ---
 
 ## 👨‍💻 Author
-**Tejas Nadgauda**
-
-
 
 **Tejas Nadgauda**
+- GitHub: <https://github.com/Tejas56274>
 
-- GitHub: https://github.com/Tejas56274
+---
 
-
-
-
-
-
-## AI Integration 
+## 🤖 AI Integration
 
 I used ChatGPT to understand FastAPI API integration, React UI improvements, and SEO analysis logic. After generating the initial implementation, I customized the UI, improved the layout, modified the styling, and integrated the backend according to the assignment requirements. I also tested and debugged the application manually before deployment.
+
+---
+
+Built for [Digital Heroes Training Task](https://digitalheroesco.com)
