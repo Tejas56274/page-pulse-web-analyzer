@@ -1,10 +1,7 @@
 from pydantic import BaseModel, HttpUrl
 
-print("MODELS FILE LOADED")
-
 class AnalyzeRequest(BaseModel):
     url: HttpUrl
-
 
 class AnalyzeResponse(BaseModel):
     status: int
@@ -14,7 +11,6 @@ class AnalyzeResponse(BaseModel):
     h1_count: int
     missing_alt_images: int
     word_count: int
-
     seo_score: int
     https_enabled: bool
     robots_txt: bool
