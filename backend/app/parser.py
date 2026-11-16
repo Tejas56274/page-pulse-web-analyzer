@@ -3,6 +3,13 @@ import httpx
 from bs4 import BeautifulSoup
 from urllib.parse import urlparse
 
+"""Utility functions for analysing a web page.
+
+The :func:`analyze_page` function fetches the target URL, parses the HTML
+with BeautifulSoup and returns a dictionary containing SEO‑related metrics.
+It is deliberately lightweight and raises ``httpx`` exceptions for the
+caller to handle (e.g., timeouts or connection errors).
+"""
 
 def analyze_page(url: str):
     start_time = time.time()
@@ -32,7 +39,10 @@ def analyze_page(url: str):
     # Basic Analysis
     # -------------------------
 
-    title = soup.title.string.strip() if soup.title else "No Title"
+    if soup.title and soup.title.string:
+        title = soup.title.string.strip()
+    else:
+        title = "No Title"
 
     meta = soup.find("meta", attrs={"name": "description"})
     meta_description = (
