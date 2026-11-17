@@ -1,3 +1,9 @@
+"""Utility functions for parsing and analyzing web pages.
+
+The `analyze_page` function fetches a URL, extracts basic SEO and performance
+information, and returns a dictionary compatible with the API response model.
+"""
+
 import time
 import httpx
 from bs4 import BeautifulSoup
@@ -32,7 +38,10 @@ def analyze_page(url: str):
     # Basic Analysis
     # -------------------------
 
-    title = soup.title.string.strip() if soup.title else "No Title"
+    if soup.title and soup.title.string:
+        title = soup.title.string.strip()
+    else:
+        title = "No Title"
 
     meta = soup.find("meta", attrs={"name": "description"})
     meta_description = (
