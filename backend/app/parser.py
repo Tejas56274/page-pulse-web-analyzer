@@ -32,7 +32,12 @@ def analyze_page(url: str):
     # Basic Analysis
     # -------------------------
 
-    title = soup.title.string.strip() if soup.title else "No Title"
+    # Title extraction – handle missing or empty <title> gracefully
+    title_tag = soup.title
+    if title_tag and title_tag.string:
+        title = title_tag.string.strip()
+    else:
+        title = "No Title"
 
     meta = soup.find("meta", attrs={"name": "description"})
     meta_description = (
