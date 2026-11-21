@@ -1,7 +1,5 @@
 from pydantic import BaseModel, HttpUrl
 
-print("MODELS FILE LOADED")
-
 class AnalyzeRequest(BaseModel):
     url: HttpUrl
 
