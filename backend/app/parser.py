@@ -5,6 +5,10 @@ from urllib.parse import urlparse
 
 
 def analyze_page(url: str):
+    """Fetch a webpage and compute SEO‑related metrics.
+
+    Returns a dictionary compatible with ``AnalyzeResponse``.
+    """
     start_time = time.time()
 
     headers = {
@@ -32,7 +36,11 @@ def analyze_page(url: str):
     # Basic Analysis
     # -------------------------
 
-    title = soup.title.string.strip() if soup.title else "No Title"
+    # Safer title extraction – handles missing or empty <title> tags
+    if soup.title and soup.title.string:
+        title = soup.title.string.strip()
+    else:
+        title = "No Title"
 
     meta = soup.find("meta", attrs={"name": "description"})
     meta_description = (
