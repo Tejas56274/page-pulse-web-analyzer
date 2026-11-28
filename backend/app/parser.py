@@ -5,6 +5,10 @@ from urllib.parse import urlparse
 
 
 def analyze_page(url: str):
+    """Fetch a web page and compute various SEO and performance metrics.
+
+    Returns a dictionary compatible with ``AnalyzeResponse``.
+    """
     start_time = time.time()
 
     headers = {
@@ -14,14 +18,14 @@ def analyze_page(url: str):
             "Chrome/138.0.0.0 Safari/537.36"
         ),
         "Accept": "text/html,application/xhtml+xml",
-        "Accept-Language": "en-US,en;q=0.9"
+        "Accept-Language": "en-US,en;q=0.9",
     }
 
     response = httpx.get(
         url,
         headers=headers,
         timeout=10,
-        follow_redirects=True
+        follow_redirects=True,
     )
 
     end_time = time.time()
@@ -32,7 +36,12 @@ def analyze_page(url: str):
     # Basic Analysis
     # -------------------------
 
-    title = soup.title.string.strip() if soup.title else "No Title"
+    # Title extraction – handle missing or empty <title> gracefully
+    title_tag = soup.title
+    if title_tag and title_tag.string:
+        title = title_tag.string.strip()
+    else:
+        title = "No Title"
 
     meta = soup.find("meta", attrs={"name": "description"})
     meta_description = (
@@ -67,7 +76,7 @@ def analyze_page(url: str):
             base_url + "/robots.txt",
             headers=headers,
             timeout=5,
-            follow_redirects=True
+            follow_redirects=True,
         )
         robots_txt = robots.status_code == 200
     except Exception:
@@ -78,7 +87,7 @@ def analyze_page(url: str):
             base_url + "/sitemap.xml",
             headers=headers,
             timeout=5,
-            follow_redirects=True
+            follow_redirects=True,
         )
         sitemap_xml = sitemap.status_code == 200
     except Exception:
@@ -120,5 +129,5 @@ def analyze_page(url: str):
         "seo_score": score,
         "https_enabled": https_enabled,
         "robots_txt": robots_txt,
-        "sitemap_xml": sitemap_xml
+        "sitemap_xml": sitemap_xml,
     }
